@@ -25,6 +25,13 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'shougo/neocomplete.vim'
+NeoBundle 'wavded/vim-stylus'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Prose
 NeoBundleLazy 'tpope/vim-commentary', {'filetypes': 'tex'}
@@ -44,6 +51,7 @@ NeoBundleCheck
 set relativenumber
 set number
 filetype off
+
 filetype plugin on 
 syntax on
 autocmd FileType * setlocal nofoldenable
@@ -62,3 +70,23 @@ nnoremap D d$
 set clipboard=unnamed
 set autochdir
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+set list
+
+" size of a hard tabstop
+set tabstop=4
+"
+" size of an "indent"
+set shiftwidth=4
+"
+" a combination of spaces and tabs are used to simulate tab stops at a width
+" other than the (hard)tabstop
+set softtabstop=4
+" make "tab" insert indents instead of tabs at the beginning of a line
+set smarttab
+
+" always uses spaces instead of tab characters
+set expandtab
+
+colorscheme elflord
+let g:indent_guides_enable_on_vim_startup = 1
+set listchars=precedes:⠐
