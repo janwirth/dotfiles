@@ -32,6 +32,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'flazz/vim-colorschemes'
 
 " Prose
 NeoBundleLazy 'tpope/vim-commentary', {'filetypes': 'tex'}
@@ -70,7 +71,6 @@ nnoremap D d$
 set clipboard=unnamed
 set autochdir
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-set list
 
 " size of a hard tabstop
 set tabstop=4
@@ -87,6 +87,7 @@ set smarttab
 " always uses spaces instead of tab characters
 set expandtab
 
-colorscheme elflord
+set background=dark
+colorscheme solarized
 let g:indent_guides_enable_on_vim_startup = 1
 set listchars=precedes:⠐
