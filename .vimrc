@@ -30,14 +30,11 @@ NeoBundle 'wavded/vim-stylus'
 NeoBundle 'tpope/vim-sensible'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'tpope/vim-commentary'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'flazz/vim-colorschemes'
-
-" Prose
-NeoBundleLazy 'tpope/vim-commentary', {'filetypes': 'tex'}
-NeoBundleLazy 'reedes/vim-wordy', {'filetypes': 'tex'}
-NeoBundleLazy 'junegunn/goyo.vim', {'filetypes': 'tex'}
+NeoBundle 'azumakuniyuki/vim-colorschemes'
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'chikatoike/sourcemap.vim'
+NeoBundle 'amix/vim-zenroom2'
 
 call neobundle#end()
 
@@ -87,7 +84,7 @@ set smarttab
 " always uses spaces instead of tab characters
 set expandtab
 
-set background=dark
-colorscheme solarized
 let g:indent_guides_enable_on_vim_startup = 1
 set listchars=precedes:⠐
+
+colorscheme peachpuff
