@@ -35,12 +35,13 @@ NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'chikatoike/sourcemap.vim'
 NeoBundle 'amix/vim-zenroom2'
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'ajh17/VimCompletesMe'
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'junegunn/seoul256.vim'
 NeoBundle 'powerline/powerline'
 NeoBundle 'jnurmine/Zenburn'
 NeoBundle 'jscappini/material.vim'
 NeoBundle 'altercation/solarized'
+NeoBundle 'digitaltoad/vim-jade'
 
 
 call neobundle#end()
@@ -56,8 +57,6 @@ filetype plugin indent on
 NeoBundleCheck
 
 " UI
-set relativenumber
-set number
 filetype off
 
 
@@ -116,8 +115,5 @@ set directory=~/.vim/swaps//
 
 " Ignore case in searches excepted if an uppercase letter is used
 set smartcase
-if has('nvim')
-    echo 'yay'
-else
-    echo 'nay'
-endif
+set relativenumber
+set number

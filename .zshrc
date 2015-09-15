@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="random"
+ZSH_THEME="theunraveler"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -85,7 +85,6 @@ source $ZSH/oh-my-zsh.sh
 #
 set -o 'vi'
 DEFAULT_USER='jan'
-alias vim=v
 plugins=(fasd tmux)
 source ~/shellplugins/z.sh
 
@@ -96,3 +95,5 @@ alias f='fasd -f'        # file
 alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 
+eval "$(fasd --init auto)"
+alias tmux="TERM=screen-256color-bce tmux"

@@ -11,6 +11,10 @@ sudo rm ~/.viminfo
 sudo rm ~/.nviminfo
 ln -s ~/.viminfo ~/.nviminfo
 
+#create vim folders
+mkdir -p ~/.vim/backups
+mkdir -p ~/.vim/swaps
+
 # link directories
 rm -rf ~/.nvim
 ln -s ~/.vim ~/.nvim
@@ -31,3 +35,7 @@ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 rm -r ~/shellplugins
 mkdir ~/shellplugins
 curl https://raw.githubusercontent.com/rupa/z/master/z.sh > ~/shellplugins/z.sh
+
+# global gitignore
+git config --global core.excludesfile '~/.gitignore'
+ln -s ~/dotfiles/.gitignore ~/.gitignore
