@@ -97,3 +97,4 @@ alias sf='fasd -sif'     # interactive file selection
 
 eval "$(fasd --init auto)"
 alias tmux="TERM=screen-256color-bce tmux"
+function k () kak `fasd -f $@`
