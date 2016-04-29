@@ -1,0 +1,26 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.tmux.conf: tmux.conf
+    ~/.zshrc:
+      force: true
+      path: zshrc
+    ~/.gitignore: gitignore
+    ~/.config/kak/kakrc: kakrc
+    ~/Library/Preferences/com.apple.Terminal.plist:
+      force: true
+      path: com.apple.Terminal.plist
+    ~/Library/Preferences/org.pqrs.Karabiner.plist:
+      force: true
+      path: org.pqrs.Karabiner.plist
+    ~/Library/Preferences/org.pqrs.Seil.plist:
+      force: true
+      path: org.pqrs.Seil.plist
+
+
+- shell:
+  - git config --global core.excludesfile ~/.gitignore

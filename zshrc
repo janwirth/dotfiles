@@ -86,7 +86,6 @@ source $ZSH/oh-my-zsh.sh
 set -o 'vi'
 DEFAULT_USER='jan'
 plugins=(fasd tmux)
-source ~/shellplugins/z.sh
 
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
