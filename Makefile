@@ -94,6 +94,10 @@ installSoftware:
   	rm installZsh.sh; \
 	fi
 
+	# configure git
+	git config --global user.name "Jan Wirth"
+	git config --global user.email "jottenwe@gmail.com"
+
 	# bootstrap configuration
 	sudo ./install
 
