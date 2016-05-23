@@ -60,6 +60,7 @@ installOsxSoftware:
 	brew install the_platinum_searcher
 	brew install fasd
 	brew install zsh
+	brew install thefuck
 	brew install node
 
 	# Installing additional resources

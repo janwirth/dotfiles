@@ -95,6 +95,7 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 
 eval "$(fasd --init auto)"
+eval "$(thefuck --alias)"
 alias tmux="TERM=screen-256color-bce tmux"
 PATH=$PATH:$HOME/kakoune/src/
 function k () kak `fasd -f $@`
