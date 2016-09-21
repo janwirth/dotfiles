@@ -100,6 +100,12 @@ alias tmux="TERM=screen-256color-bce tmux"
 PATH=$PATH:$HOME/kakoune/src/
 function k () kak `fasd -f $@`
 
+
+# exports for Node and Python
+export NODE_PATH=/usr/local/lib/node_modules
+export PYTHONPATH=./:$PYTHONPATH
+
+
 ### ZNT's installer added snippet ###
 fpath=( "$fpath[@]" "$HOME/.config/znt/zsh-navigation-tools" )
 autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize n-help
