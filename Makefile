@@ -84,6 +84,7 @@ installSoftware:
 
 	# Install OSX software
 	make installOsxSoftware
+	make installHyperdock
 	
 	# Install Node modules
 	make installNodeModules
