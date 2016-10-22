@@ -104,6 +104,8 @@ function k () kak `fasd -f $@`
 # exports for Node and Python
 export NODE_PATH=/usr/local/lib/node_modules
 export PYTHONPATH=./:$PYTHONPATH
+export GOPATH=/usr/local/lib/go_projects
+PATH=$PATH:$GOPATH
 
 
 ### ZNT's installer added snippet ###
