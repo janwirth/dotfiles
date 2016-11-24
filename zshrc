@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 #
 set -o 'vi'
 DEFAULT_USER='jan'
-plugins=(fasd tmux)
+plugins=(fasd)
 
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
@@ -96,7 +96,6 @@ alias sf='fasd -sif'     # interactive file selection
 
 eval "$(fasd --init auto)"
 eval "$(thefuck --alias)"
-alias tmux="TERM=screen-256color-bce tmux"
 PATH=$PATH:$HOME/kakoune/src/
 function k () kak `fasd -f $@`
 

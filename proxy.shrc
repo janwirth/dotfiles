@@ -1,0 +1,2 @@
+npm config set proxy http://proxy.intra.dmc.de:3128
+npm config set https-proxy http://proxy.intra.dmc.de:3128
