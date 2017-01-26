@@ -10,6 +10,8 @@
       path: zshrc
     ~/.xinitrc:
       path: xinitrc
+    ~/.cinteoscreens.sh:
+      path: cinteoscreens.sh
     ~/.spectrwm.conf:
       path: spectrwm.conf
     ~/.keymap.xkb:

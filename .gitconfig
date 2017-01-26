@@ -1,0 +1,8 @@
+[http]
+	proxy = http://proxy.intra.dmc.de:3128/
+[https]
+	proxy = http://proxy.intra.dmc.de:3128/
+[core]
+	excludesfile = /home/wirthjan/.gitignore
+[user]
+	email = jan.wirth@cinteo.com

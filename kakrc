@@ -13,3 +13,9 @@ hook global InsertChar ' "exec '<left>"
 
 
 hook global WinCreate .* %{ addhl show_matching }
+
+hook global BufOpen .* %{editorconfig-load}
+
+hook global NormalKey y|d|c %{ nop %sh{
+  printf %s "$kak_reg_dquote" | xsel --input --clipboard
+}}

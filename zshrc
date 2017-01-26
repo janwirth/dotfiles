@@ -94,10 +94,12 @@ alias f='fasd -f'        # file
 alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 
+
 eval "$(fasd --init auto)"
 eval "$(thefuck --alias)"
 PATH=$PATH:$HOME/kakoune/src/
 function k () kak `fasd -f $@`
+function at () atom `fasd -f $@`
 
 
 # exports for Node and Python
@@ -118,3 +120,13 @@ bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
+
+alias h='n-history'
+
+alias chrome='LANG=en_US.UTF-8; LANGUAGE=en /usr/bin/google-chrome-stable %U'
+
+
+export NVM_DIR="/home/wirthjan/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export EDITOR='kak'
