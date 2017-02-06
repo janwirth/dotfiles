@@ -94,6 +94,8 @@ alias f='fasd -f'        # file
 alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 
+alias h='n-history'     # interactive file selection
+
 eval "$(fasd --init auto)"
 eval "$(thefuck --alias)"
 PATH=$PATH:$HOME/kakoune/src/
@@ -118,3 +120,9 @@ bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
+export https_proxy=http://proxy.intra.dmc.de:3128
+export http_proxy=http://proxy.intra.dmc.de:3128
+export HTTPS_PROXY=https_proxy
+export HTTP_PROXY=http_proxy
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

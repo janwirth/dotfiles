@@ -19,6 +19,8 @@
     ~/Library/Preferences/com.apple.Terminal.plist:
       force: true
       path: com.apple.Terminal.plist
+    /Library/Keyboard Layouts/Colemak.keylayout:
+      path: Colemak.keylayout
 
 
 - shell:

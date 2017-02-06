@@ -9,7 +9,12 @@ hook global WinCreate .* %{hook window InsertChar \t %{ exec -draft h@}}
 hook global InsertChar \( 'exec )<left>'
 hook global InsertChar \{ 'exec }<left>'
 hook global InsertChar \[ 'exec ]<left>'
+hook global InsertChar \< 'exec ><left>'
 hook global InsertChar ' "exec '<left>"
 
 
 hook global WinCreate .* %{ addhl show_matching }
+
+hook global NormalKey y|d|c %{ nop %sh{
+  printf %s "$kak_reg_dquote" | pbcopy
+}}
