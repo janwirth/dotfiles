@@ -122,8 +122,8 @@ zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
 export https_proxy=http://proxy.intra.dmc.de:3128
 export http_proxy=http://proxy.intra.dmc.de:3128
-export HTTPS_PROXY=https_proxy
-export HTTP_PROXY=http_proxy
+export HTTPS_PROXY=$https_proxy
+export HTTP_PROXY=$http_proxy
 export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 export NO_PROXY=no_proxy
 
