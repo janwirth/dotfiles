@@ -18,3 +18,9 @@ hook global WinCreate .* %{ addhl show_matching }
 hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_reg_dquote" | pbcopy
 }}
+
+hook global BufCreate .* %{editorconfig-load}
+hook global BufCreate .vue %{ set buffer filetype xml }
+hook global BufCreate .*.elm %{ set buffer filetype haskell }
+hook global BufCreate .*.purs %{ set buffer filetype haskell }
+hook global BufCreate .*.es6 %{ set buffer filetype javascript }

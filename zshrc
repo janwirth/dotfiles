@@ -120,13 +120,33 @@ bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
-export https_proxy=http://proxy.intra.dmc.de:3128
-export http_proxy=http://proxy.intra.dmc.de:3128
-export HTTPS_PROXY=$https_proxy
-export HTTP_PROXY=$http_proxy
-export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-export NO_PROXY=no_proxy
+# 
+# export https_proxy=http://proxy.intra.dmc.de:3128
+# export http_proxy=http://proxy.intra.dmc.de:3128
+# export HTTPS_PROXY=$https_proxy
+# export HTTP_PROXY=$http_proxy
+# export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+# export NO_PROXY=no_proxy
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
+# yarn bins
 export PATH="$HOME/.yarn/bin:$PATH"
+
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias ga="git add"
+alias amend="git commit --amend --no-edit"
+
+
+
+
+# AEM stuff
+export _DEVAEM_AUTHOR_PORT=`xmllint --xpath "//*[local-name()='configuration']/*[local-name()='port']/text()" ~/one-web/owf-aem-development-server/author/pom.xml`
+export _DEVAEM_PUBLISH_PORT=`xmllint --xpath "//*[local-name()='configuration']/*[local-name()='port']/text()" ~/one-web/owf-aem-development-server/publish/pom.xml`
+
+alias aemDeployPackageOnAuthor="mvn clean install -Pserver-package-deploy -Dcq.server=http://localhost:${_DEVAEM_AUTHOR_PORT}"
+alias aemDeployPackageOnPublish="mvn clean install -Pserver-package-deploy -Dcq.server=http://localhost:${_DEVAEM_PUBLISH_PORT}"
+alias aemRedeploy="mvn clean cq-deploy -f ~/one-web/owf-aem-development-server/pom.xml"
+alias aemDeploy="mvn cq-deploy -f ~/one-web/owf-aem-development-server/pom.xml"
+alias aemStart="mvn cq-start -f ~/one-web/owf-aem-development-server/pom.xml"
+alias aemStop="mvn cq-stop -f ~/one-web/owf-aem-development-server/pom.xml"
