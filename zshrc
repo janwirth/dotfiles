@@ -62,11 +62,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vi'
+else
+  export EDITOR='kak'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -127,7 +127,7 @@ zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 # export HTTP_PROXY=$http_proxy
 # export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 # export NO_PROXY=no_proxy
-
+# # 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 # yarn bins
@@ -150,3 +150,38 @@ alias aemRedeploy="mvn clean cq-deploy -f ~/one-web/owf-aem-development-server/p
 alias aemDeploy="mvn cq-deploy -f ~/one-web/owf-aem-development-server/pom.xml"
 alias aemStart="mvn cq-start -f ~/one-web/owf-aem-development-server/pom.xml"
 alias aemStop="mvn cq-stop -f ~/one-web/owf-aem-development-server/pom.xml"
+
+
+rebase () {
+  echo "ex) $ rebase.sh [BRANCH NAME]"
+  echo "git checkout master && git pull --rebase origin master && git checkout [BRANCH NAME] && git pull --rebase origin [BRANCH NAME] && git merge master && git push origin [BRANCH NAME]"
+  echo ""
+
+  echo "  $ git checkout master"
+  git checkout master
+
+  echo "  $ git pull --rebase origin master"
+  git pull --rebase origin master
+
+  echo "  $ git checkout "$1
+  git checkout $1
+
+  echo "  $ git pull --rebase origin "$1
+  git pull --rebase origin $1
+
+  echo "  $ git merge master"
+  git merge master
+
+  echo "  $ git push origin "$1
+  git push origin $1
+}
+
+# Open by file name
+function k () kak `fasd -f $@`
+
+# Open nth res with kak
+function rgk () kak `rg -l $1 | sed "${2}q;d"`
+
+alias rgl='rg -l'
+
+alias tomp3='youtube-dl --audio-quality=320K -x --audio-format mp3'
