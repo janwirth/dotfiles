@@ -16,6 +16,7 @@
       path: keymap.xkb
     ~/.gitignore: gitignore
     ~/.config/kak/kakrc: kakrc
+    /usr/local/bin/inc: increment.sh
     ~/Library/Preferences/com.apple.Terminal.plist:
       force: true
       path: com.apple.Terminal.plist
