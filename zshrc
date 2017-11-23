@@ -179,6 +179,9 @@ rebase () {
 # Open by file name
 function k () kak `fasd -f $@`
 
+# Open by file name
+# function read () less `fasd -f $@`
+
 # Open nth res with kak
 function rgk () kak `rg -l $1 | sed "${2}q;d"`
 
