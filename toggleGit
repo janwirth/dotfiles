@@ -4,7 +4,7 @@
 
 CURRENTUSEREMAIL=$(git config user.email)
 PRIVATE="jottenwe@gmail.com"
-BUSINESS="jan.wirth@cinteo.com"
+BUSINESS="jan.wirth@mercedes-benz.io"
 
 if [ "$CURRENTUSEREMAIL" != "$BUSINESS" ]; then
     git config --global user.email "$BUSINESS"
