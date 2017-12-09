@@ -23,4 +23,4 @@ hook global BufCreate .* %{editorconfig-load}
 hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
 hook global BufCreate .*.purs %{ set buffer filetype haskell }
-hook global BufCreate .*.es6 %{ set buffer filetype javascript }
+hook global BufCreate .*.(es6|tsx?) %{ set buffer filetype javascript }
