@@ -186,5 +186,6 @@ function rid () less `fasd -f $@`
 function rgk () kak `rg -l $1 | sed "${2}q;d"`
 
 alias rgl='rg -l'
+alias pip='pip3'
 
 alias tomp3='youtube-dl --audio-quality=320K -x --audio-format mp3'
