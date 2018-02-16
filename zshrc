@@ -97,7 +97,6 @@ alias sf='fasd -sif'     # interactive file selection
 alias h='n-history'     # interactive file selection
 
 eval "$(fasd --init auto)"
-eval "$(thefuck --alias)"
 PATH=$PATH:$HOME/kakoune/src/
 function k () kak `fasd -f $@`
 
@@ -136,21 +135,6 @@ export PATH="$HOME/.yarn/bin:$PATH"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias ga="git add"
 alias amend="git commit --amend --no-edit"
-
-
-
-
-# AEM stuff
-export _DEVAEM_AUTHOR_PORT=`xmllint --xpath "//*[local-name()='configuration']/*[local-name()='port']/text()" ~/one-web/owf-aem-development-server/author/pom.xml`
-export _DEVAEM_PUBLISH_PORT=`xmllint --xpath "//*[local-name()='configuration']/*[local-name()='port']/text()" ~/one-web/owf-aem-development-server/publish/pom.xml`
-
-alias aemDeployPackageOnAuthor="mvn clean install -Pserver-package-deploy -Dcq.server=http://localhost:${_DEVAEM_AUTHOR_PORT}"
-alias aemDeployPackageOnPublish="mvn clean install -Pserver-package-deploy -Dcq.server=http://localhost:${_DEVAEM_PUBLISH_PORT}"
-alias aemRedeploy="mvn clean cq-deploy -f ~/one-web/owf-aem-development-server/pom.xml"
-alias aemDeploy="mvn cq-deploy -f ~/one-web/owf-aem-development-server/pom.xml"
-alias aemStart="mvn cq-start -f ~/one-web/owf-aem-development-server/pom.xml"
-alias aemStop="mvn cq-stop -f ~/one-web/owf-aem-development-server/pom.xml"
-
 
 rebase () {
   echo "ex) $ rebase.sh [BRANCH NAME]"
