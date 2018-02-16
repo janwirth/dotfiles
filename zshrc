@@ -124,3 +124,8 @@ alias pip='pip3'
 alias tomp3='youtube-dl --audio-quality=320K -x --audio-format mp3'
 
 alias h='n-history'     # interactive file selection
+
+# vim keybindings
+bindkey -v
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

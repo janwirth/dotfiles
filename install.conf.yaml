@@ -8,6 +8,12 @@
     ~/.zshrc:
       force: true
       path: zshrc
+    ~/.skhdrc:
+      force: true
+      path: skhdrc
+    ~/.chunkwmrc:
+      force: true
+      path: chunkwmrc
     ~/.xinitrc:
       path: xinitrc
     ~/.spectrwm.conf:
