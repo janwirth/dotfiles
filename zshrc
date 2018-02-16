@@ -1,11 +1,20 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/wirthjan/.oh-my-zsh
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="refined"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,30 +58,32 @@ ZSH_THEME="refined"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  fasd
+)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$HOME/n/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vi'
-else
-  export EDITOR='kak'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -82,30 +93,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-set -o 'vi'
-DEFAULT_USER='jan'
-plugins=(fasd)
 
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-
-alias h='n-history'     # interactive file selection
-
-eval "$(fasd --init auto)"
-PATH=$PATH:$HOME/kakoune/src/
-function k () kak `fasd -f $@`
-
-
-# exports for Node and Python
-export NODE_PATH=/usr/local/lib/node_modules
-export PYTHONPATH=./:$PYTHONPATH
-export GOPATH=/usr/local/lib/go_projects
-PATH=$PATH:$GOPATH
 
 
 ### ZNT's installer added snippet ###
@@ -119,46 +107,10 @@ bindkey '^R' znt-history-widget
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
-# 
-# export https_proxy=http://proxy.intra.dmc.de:3128
-# export http_proxy=http://proxy.intra.dmc.de:3128
-# export HTTPS_PROXY=$https_proxy
-# export HTTP_PROXY=$http_proxy
-# export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-# export NO_PROXY=no_proxy
-# # 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-# yarn bins
-export PATH="$HOME/.yarn/bin:$PATH"
-
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+### MY STUFF
 alias ga="git add"
 alias amend="git commit --amend --no-edit"
-
-rebase () {
-  echo "ex) $ rebase.sh [BRANCH NAME]"
-  echo "git checkout master && git pull --rebase origin master && git checkout [BRANCH NAME] && git pull --rebase origin [BRANCH NAME] && git merge master && git push origin [BRANCH NAME]"
-  echo ""
-
-  echo "  $ git checkout master"
-  git checkout master
-
-  echo "  $ git pull --rebase origin master"
-  git pull --rebase origin master
-
-  echo "  $ git checkout "$1
-  git checkout $1
-
-  echo "  $ git pull --rebase origin "$1
-  git pull --rebase origin $1
-
-  echo "  $ git merge master"
-  git merge master
-
-  echo "  $ git push origin "$1
-  git push origin $1
-}
 
 # Open by file name
 function k () kak `fasd -f $@`
@@ -166,10 +118,9 @@ function k () kak `fasd -f $@`
 # Open by file name
 function rid () less `fasd -f $@`
 
-# Open nth res with kak
-function rgk () kak `rg -l $1 | sed "${2}q;d"`
-
 alias rgl='rg -l'
 alias pip='pip3'
 
 alias tomp3='youtube-dl --audio-quality=320K -x --audio-format mp3'
+
+alias h='n-history'     # interactive file selection
