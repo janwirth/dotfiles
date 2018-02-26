@@ -46,46 +46,46 @@ cmd - j : chunkc tiling::window --focus prev
 cmd - k : chunkc tiling::window --focus next
 
 # equalize size of windows
-shift + fn - 0 : chunkc tiling::desktop --equalize
+# shift + fn - 0 : chunkc tiling::desktop --equalize
 
 # swap window
-shift + fn - h : chunkc tiling::window --swap west
-shift + fn - j : chunkc tiling::window --swap south
-shift + fn - k : chunkc tiling::window --swap north
-shift + fn - l : chunkc tiling::window --swap east
+# shift + fn - h : chunkc tiling::window --swap west
+# shift + fn - j : chunkc tiling::window --swap south
+# shift + fn - k : chunkc tiling::window --swap north
+# shift + fn - l : chunkc tiling::window --swap east
 
 # move window
-shift + cmd - h : chunkc tiling::window --warp west
-shift + cmd - j : chunkc tiling::window --warp south
-shift + cmd - k : chunkc tiling::window --warp north
-shift + cmd - l : chunkc tiling::window --warp east
+# shift + cmd - h : chunkc tiling::window --warp west
+# shift + cmd - j : chunkc tiling::window --warp south
+# shift + cmd - k : chunkc tiling::window --warp north
+# shift + cmd - l : chunkc tiling::window --warp east
 
 # make floating window fill screen
-shift + fn - up     : chunkc tiling::window --grid-layout 1:1:0:0:1:1
+# shift + fn - up     : chunkc tiling::window --grid-layout 1:1:0:0:1:1
 
 # make floating window fill left-half of screen
-shift + fn - left   : chunkc tiling::window --grid-layout 1:2:0:0:1:1
+# shift + fn - left   : chunkc tiling::window --grid-layout 1:2:0:0:1:1
 
 # make floating window fill right-half of screen
-shift + fn - right  : chunkc tiling::window --grid-layout 1:2:1:0:1:1
+# shift + fn - right  : chunkc tiling::window --grid-layout 1:2:1:0:1:1
 
 # send window to desktop
-shift + fn - x : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
-shift + fn - z : chunkc tiling::window --send-to-desktop prev
-shift + fn - c : chunkc tiling::window --send-to-desktop next
-shift + fn - 1 : chunkc tiling::window --send-to-desktop 1
-shift + fn - 2 : chunkc tiling::window --send-to-desktop 2
-shift + fn - 3 : chunkc tiling::window --send-to-desktop 3
-shift + fn - 4 : chunkc tiling::window --send-to-desktop 4
-shift + fn - 5 : chunkc tiling::window --send-to-desktop 5
-shift + fn - 6 : chunkc tiling::window --send-to-desktop 6
+# shift + fn - x : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
+# shift + fn - z : chunkc tiling::window --send-to-desktop prev
+# shift + fn - c : chunkc tiling::window --send-to-desktop next
+# shift + fn - 1 : chunkc tiling::window --send-to-desktop 1
+# shift + fn - 2 : chunkc tiling::window --send-to-desktop 2
+# shift + fn - 3 : chunkc tiling::window --send-to-desktop 3
+# shift + fn - 4 : chunkc tiling::window --send-to-desktop 4
+# shift + fn - 5 : chunkc tiling::window --send-to-desktop 5
+# shift + fn - 6 : chunkc tiling::window --send-to-desktop 6
 
 # focus monitor
-ctrl + fn - z  : chunkc tiling::monitor -f prev
-ctrl + fn - c  : chunkc tiling::monitor -f next
-ctrl + fn - 1  : chunkc tiling::monitor -f 1
-ctrl + fn - 2  : chunkc tiling::monitor -f 2
-ctrl + fn - 3  : chunkc tiling::monitor -f 3
+fn + ctrl - z  : chunkc tiling::monitor -f prev
+fn + ctrl - c  : chunkc tiling::monitor -f next
+fn + ctrl - 1  : chunkc tiling::monitor -f 1
+fn + ctrl - 2  : chunkc tiling::monitor -f 2
+fn + ctrl - 3  : chunkc tiling::monitor -f 3
 
 # send window to monitor and follow focus
 ctrl + cmd - z  : chunkc tiling::window --send-to-monitor prev; chunkc tiling::monitor -f prev
@@ -95,23 +95,23 @@ ctrl + cmd - 2  : chunkc tiling::window --send-to-monitor 2; chunkc tiling::moni
 ctrl + cmd - 3  : chunkc tiling::window --send-to-monitor 3; chunkc tiling::monitor -f 3
 
 # increase region size
-shift + fn - a : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
-shift + fn - s : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
-shift + fn - w : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
-shift + fn - d : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
+# shift + fn - a : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
+# shift + fn - s : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south
+# shift + fn - w : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+# shift + fn - d : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east
 
 # decrease region size
-shift + cmd - a : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
-shift + cmd - s : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south
-shift + cmd - w : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
-shift + cmd - d : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
+# shift + cmd - a : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
+# shift + cmd - s : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south
+# shift + cmd - w : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
+# shift + cmd - d : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
 
 # set insertion point for focused container
-ctrl + fn - f : chunkc tiling::window --use-insertion-point cancel
-ctrl + fn - h : chunkc tiling::window --use-insertion-point west
-ctrl + fn - j : chunkc tiling::window --use-insertion-point south
-ctrl + fn - k : chunkc tiling::window --use-insertion-point north
-ctrl + fn - l : chunkc tiling::window --use-insertion-point east
+fn + ctrl - f : chunkc tiling::window --use-insertion-point cancel
+fn + ctrl - h : chunkc tiling::window --use-insertion-point west
+fn + ctrl - j : chunkc tiling::window --use-insertion-point south
+fn + ctrl - k : chunkc tiling::window --use-insertion-point north
+fn + ctrl - l : chunkc tiling::window --use-insertion-point east
 
 # rotate tree
 fn - r : chunkc tiling::desktop --rotate 90
@@ -129,7 +129,7 @@ fn - a : chunkc tiling::desktop --toggle offset
 fn - f : chunkc tiling::window --toggle fullscreen
 
 # toggle window native fullscreen
-shift + fn - f : chunkc tiling::window --toggle native-fullscreen
+# shift + fn - f : chunkc tiling::window --toggle native-fullscreen
 
 # toggle window parent zoom
 fn - d : chunkc tiling::window --toggle parent
@@ -146,11 +146,11 @@ fn - s : chunkc tiling::window --toggle sticky;\
           chunkc tiling::window --grid-layout 5:5:4:0:1:1
 
 # float next window to be tiled
-shift + fn - t : chunkc set window_float_next 1
+# shift + fn - t : chunkc set window_float_next 1
 
 # change layout of desktop
-ctrl + fn - a : chunkc tiling::desktop --layout bsp
-ctrl + fn - s : chunkc tiling::desktop --layout monocle
-ctrl + fn - d : chunkc tiling::desktop --layout float
+fn + ctrl - a : chunkc tiling::desktop --layout bsp
+fn + ctrl - s : chunkc tiling::desktop --layout monocle
+fn + ctrl - d : chunkc tiling::desktop --layout float
 
-ctrl + fn - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
+fn + ctrl - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
