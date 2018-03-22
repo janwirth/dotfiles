@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.npm/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/wirthjan/.oh-my-zsh
@@ -128,4 +128,13 @@ alias h='n-history'     # interactive file selection
 # vim keybindings
 bindkey -v
 
+# keep dupes out of history
+export HISTCONTROL=ignoreboth:erasedups
+
+# recent branches
+# alias grb='git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+# open all files with matches in kakoune
+function rgk () kak `rg -l $1`

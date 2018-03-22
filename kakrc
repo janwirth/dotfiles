@@ -17,6 +17,8 @@ hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_reg_dquote" | pbcopy
 }}
 
+map global user p <a-!>pbpaste<ret>'
+
 hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
 hook global BufCreate .*.purs %{ set buffer filetype haskell }
@@ -30,3 +32,5 @@ define-command trim-whitespaces -docstring "Remove trailing whitespace from ever
         echo -markup "{Information}nothing to trim"
     }
 }
+
+source ~/dotfiles/find.kak
