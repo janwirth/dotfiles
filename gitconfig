@@ -1,0 +1,11 @@
+[core]
+	excludesfile = /Users/wirthjan/.gitignore
+	ignorecase = false
+[user]
+	name = Jan Wirth
+	email = jan.wirth@mercedes-benz.io
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

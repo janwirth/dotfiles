@@ -138,3 +138,5 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 # open all files with matches in kakoune
 function rgk () kak `rg -l $1`
+
+alias ns='npm start'

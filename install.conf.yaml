@@ -8,6 +8,9 @@
     ~/.zshrc:
       force: true
       path: zshrc
+    ~/.gitconfig:
+      force: true
+      path: gitconfig
     ~/.skhdrc:
       force: true
       path: skhdrc
