@@ -154,3 +154,5 @@ fn + ctrl - s : chunkc tiling::desktop --layout monocle
 fn + ctrl - d : chunkc tiling::desktop --layout float
 
 fn + ctrl - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
+
+fn + ctrl - s : cd owvs-ui && npm start

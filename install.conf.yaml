@@ -26,6 +26,7 @@
     ~/.gitignore: gitignore
     ~/.config/kak/kakrc: kakrc
     /usr/local/bin/inc: increment.sh
+    /usr/local/bin/dec: decrement.sh
     /usr/local/bin/toggleGit: toggleGit.sh
     ~/Library/Preferences/com.apple.Terminal.plist:
       force: true

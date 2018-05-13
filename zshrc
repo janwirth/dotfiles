@@ -139,4 +139,13 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 # open all files with matches in kakoune
 function rgk () kak `rg -l $1`
 
+# open all files with conflicts in kakoune
+alias fix='$EDITOR `git diff --name-only | uniq`'
+
+alias ggl='googler --colors bjdxxy'
+
+alias compress='7z a -tzip $@'
+alias decompress='7z x $@'
+
 alias ns='npm start'
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
