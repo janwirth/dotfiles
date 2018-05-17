@@ -149,3 +149,14 @@ alias decompress='7z x $@'
 
 alias ns='npm start'
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+export GOPATH=$HOME/goprojects
+
+export PATH=$PATH:$GOPATH/bin
+
+# usage: transfer some_file another_file
+# will transfer changes from some_file to another_file
+function transfer () {
+  git diff HEAD^ -- $1 > ~/patch_file # from file
+  patch -p1 $2 ~/patch_file # to file
+}
