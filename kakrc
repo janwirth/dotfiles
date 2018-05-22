@@ -23,6 +23,11 @@ map global user p <a-!>pbpaste<ret>'
 map global user r Zf.lf<space>Hyo<esc>F<esc>PA<space><minus><gt><space><esc>zf[f.lf<space>Hyjpzf[mf.lf<space>HyjA<space><esc>pz
 map global user l yI<esc>Oconsole.log(<esc>P:w<ret>
 
+# find selection across all buffers
+map global user f :find<space>%{<backspace>reg{.}<ret>
+# open file from find result
+map global user o F:<esc>H:b<space>%{<backspace>reg{.}<ret>
+
 
 hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
