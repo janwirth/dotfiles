@@ -11,7 +11,7 @@ hook global InsertChar ' "exec '<left>"
 add-highlighter global number_lines -hlcursor -separator ' '
 add-highlighter global show_matching
 add-highlighter global show_whitespaces
-add-highlighter global dynregex '%reg{/}' 0:default,+u
+#add-highlighter global dynregex '%reg{/}' 0:default,+u
 
 hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_reg_dquote" | pbcopy

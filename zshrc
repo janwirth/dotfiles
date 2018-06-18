@@ -61,6 +61,7 @@ ZSH_THEME="refined"
 plugins=(
   git
   fasd
+  fuck
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -160,3 +161,5 @@ function transfer () {
   git diff HEAD^ -- $1 > ~/patch_file # from file
   patch -p1 $2 ~/patch_file # to file
 }
+
+eval $(thefuck --alias)
