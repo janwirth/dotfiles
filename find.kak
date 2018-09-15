@@ -2,53 +2,49 @@
 # similar to grep.kak
 
 declare-option str toolsclient
+declare-option str jumpclient
 declare-option -hidden int find_current_line 0
-declare-option -hidden str find_pattern
 
 define-command -params ..1 -docstring "
 find [<pattern>]: search for a pattern in all buffers
+If <pattern> is not specified, the main selection is used
 " find %{
-    eval -no-hooks -save-regs '/' %{
+    try %{
+        eval %sh{ [ -z "$1" ] && echo fail }
+        set-register / %arg{1}
+    } catch %{
+        exec -save-regs '' '*'
+    }
+    try %{ delete-buffer *find* }
+    eval -buffer * %{
+        # create find buffer after we start iterating so as not to include it
+        eval -draft %{ edit -scratch *find* }
         try %{
-            %sh{ [ -z "$1" ] && echo fail }
-            set-register / %arg{1}
-        } catch %{
-            exec -save-regs '' '*'
-        }
-        try %{ delete-buffer *find* }
-        eval -buffer * %{
-            # create find buffer after we start iterating so as not to include it
-            eval -draft %{ edit -scratch *find* }
-            try %{
-                exec '%s<ret>'
-                # merge selections that are on the same line
-                exec '<a-l>'
-                exec '<a-;>;'
-                eval -save-regs 'c"' -itersel %{
-                    set-register c "%val{bufname}:%val{cursor_line}:%val{cursor_column}:"
-                    # expand to full line and yank
-                    exec -save-regs '' '<a-x>Hy'
-                    # paste context followed by the selection
-                    exec -buffer *find* 'geo<esc>"cp<a-p>'
-                }
+            exec '%s<ret>'
+            # merge selections that are on the same line
+            exec '<a-l>'
+            exec '<a-;>;'
+            eval -save-regs 'c"' -itersel %{
+                set-register c "%val{bufname}:%val{cursor_line}:%val{cursor_column}:"
+                # expand to full line and yank
+                exec -save-regs '' '<a-x>Hy'
+                # paste context followed by the selection
+                exec -buffer *find* 'geo<esc>"cPP'
             }
         }
-        eval -try-client %opt{toolsclient} %{
-            buffer *find*
-            # delete empty line at the top
-            exec d
-            set-option buffer find_pattern "%reg{/}"
-            set-option buffer find_current_line 0
-
-            add-highlighter buffer dynregex '%opt{find_pattern}' 0:black,yellow
-            add-highlighter buffer regex "^([^\n]+):(\d+):(\d+):" 1:cyan,black 2:green,black 3:green,black
-            add-highlighter buffer line '%opt{find_current_line}' default+b
-            map buffer normal <ret> :find-jump<ret>
-        }
+    }
+    eval -try-client %opt{toolsclient} %{
+        buffer *find*
+        # delete empty line at the top
+        exec d
+        set-option buffer find_current_line 0
+        addhl buffer/ regex "%reg{/}" 0:black,yellow
+        addhl buffer/ regex "^([^\n]+):(\d+):(\d+):" 1:cyan,black 2:green,black 3:green,black
+        addhl buffer/ line '%opt{find_current_line}' default+b
+        map buffer normal <ret> :find-jump<ret>
     }
 }
 
-declare-option str jumpclient
 
 define-command -hidden find-apply-impl -params 3 %{
     eval -buffer %arg{1} %{
@@ -57,9 +53,6 @@ define-command -hidden find-apply-impl -params 3 %{
         try %{
             # go to the target line and select up to \n
             exec "%arg{2}g<a-x>H"
-            # make sure the replacement is not a noop
-            set-register / "\A\Q%arg{3}\E\z"
-            exec "<a-K><c-r>/<ret>"
             # replace
             set-register '"' %arg{3}
             exec R
@@ -83,16 +76,16 @@ define-command -hidden find-apply-force-impl -params 3 %{
 
 define-command find-apply-changes -params ..1 -docstring "
 find-apply-changes [-force]: apply changes from the current buffer to their file
-If -force is specified, changes will also be applied to files without a buffer
+If -force is specified, changes will also be applied to files that do not have a buffer
 " %{
-    eval -save-regs 'sif' %{
+    eval -no-hooks -save-regs 'sif' %{
         set-register s ""
         set-register i ""
         set-register f ""
         eval -save-regs 'c' -draft %{
             # select all lines that match the *find* pattern
             exec '%s^([^\n]+):(\d+):\d+:([^\n]*)$<ret>'
-            set-register c %sh{ [ "$1" = "-force" ] && c=find-apply-force-impl || c=find-apply-impl; printf $c }
+            set-register c %sh{ [ "$1" = "-force" ] && printf find-apply-force-impl || printf find-apply-impl }
             eval -itersel %{
                 try %{
                     %reg{c} %reg{1} %reg{2} %reg{3}
@@ -102,21 +95,20 @@ If -force is specified, changes will also be applied to files without a buffer
             }
         }
         echo -markup %sh{
-            printf "\"{Information}"
-            s=${#kak_reg_s}
+            printf "{Information}"
+            s=${#kak_main_reg_s}
             [ $s -ne 1 ] && p=s
             printf "%i change%s applied" "$s" "$p"
-            i=${#kak_reg_i}
+            i=${#kak_main_reg_i}
             [ $i -gt 0 ] && printf ", %i ignored" "$i"
-            f=${#kak_reg_f}
+            f=${#kak_main_reg_f}
             [ $f -gt 0 ] && printf ", %i failed" "$f"
-            printf "\""
         }
     }
 }
 
 define-command -hidden find-jump %{
-    eval -collapse-jumps %{
+    eval %{
         try %{
             exec -save-regs '' '<a-x>s^([^\n]+):(\d+):(\d+):<ret>'
             set-option buffer find_current_line %val{cursor_line}
@@ -127,7 +119,7 @@ define-command -hidden find-jump %{
 }
 
 define-command find-next-match -docstring 'Jump to the next find match' %{
-    eval -collapse-jumps -try-client %opt{jumpclient} %{
+    eval -try-client %opt{jumpclient} %{
         buffer '*find*'
         exec "%opt{find_current_line}ggl/^[^\n]+:\d+:\d+:<ret>"
         find-jump
@@ -136,7 +128,7 @@ define-command find-next-match -docstring 'Jump to the next find match' %{
 }
 
 define-command find-previous-match -docstring 'Jump to the previous find match' %{
-    eval -collapse-jumps -try-client %opt{jumpclient} %{
+    eval -try-client %opt{jumpclient} %{
         buffer '*find*'
         exec "%opt{find_current_line}g<a-/>^[^\n]+:\d+:\d+:<ret>"
         find-jump
