@@ -206,3 +206,7 @@ function rebase () {
   git rebase $BASE
   git checkout $START
 }
+
+source ./pomodoro/pomodoro.sh
+alias work="pomo && pomo -s"
+

@@ -16,7 +16,7 @@ colorscheme gruvbox
 
 
 hook global NormalKey y|d|c %{ nop %sh{
-  printf %s $kak_main_reg_dquote | xsel -ib
+  printf %s "$kak_main_reg_dquote" | xsel -ib
 }}
 
 map global user p <a-!>pbpaste<ret>'
