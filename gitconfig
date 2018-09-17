@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/wirthjan/.gitignore
+	excludesfile = /home/jan/.gitignore
 	ignorecase = false
 [user]
 	name = Jan Wirth

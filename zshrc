@@ -2,7 +2,7 @@
 export PATH=$HOME/.npm/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/wirthjan/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -162,4 +162,47 @@ function transfer () {
   patch -p1 $2 ~/patch_file # to file
 }
 
-eval $(thefuck --alias)
+function project () { echo `pwd | grep -Po "(?<=jan/)([a-z-]*)"`}
+function ka () {
+  kak -d -s `project`
+  kak -c `project` $0
+}
+
+# eval $(thefuck --alias)
+
+function currentBranch () {
+  git branch | grep \* | cut -d ' ' -f2
+}
+
+function gcol {
+  git checkout @{-1}
+}
+
+
+function rebase () {
+
+  if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+      echo "usage: rebase [base [top]]"
+      echo "where [top] defaults to the current branch"
+      return
+  fi
+
+  START=`currentBranch`
+  
+  TOP=$2
+  BASE=$1
+  echo maybe $TOP
+  # fall back if second arg is not defined
+  if [[ "$2" == "" ]];
+    TOP=$START
+  if
+  echo yes $TOP
+  echo rebasing $TOP onto $BASE 
+
+  git checkout $BASE
+  git pull
+  echo checking out $TOP
+  git checkout $TOP
+  git rebase $BASE
+  git checkout $START
+}
