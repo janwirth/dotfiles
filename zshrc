@@ -168,7 +168,7 @@ function ka () {
   kak -c `project` $0
 }
 
-# eval $(thefuck --alias)
+eval $(thefuck --alias)
 
 function currentBranch () {
   git branch | grep \* | cut -d ' ' -f2
@@ -207,6 +207,5 @@ function rebase () {
   git checkout $START
 }
 
-source ./pomodoro/pomodoro.sh
+source ~/dotfiles/pomodoro/pomodoro.sh
 alias work="pomo && pomo -s"
-

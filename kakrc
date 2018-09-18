@@ -14,12 +14,13 @@ add-highlighter global/ show-whitespaces -lf ' '
 #add-highlighter global dynregex '%reg{/}' 0:default,+u
 colorscheme gruvbox
 
-
 hook global NormalKey y|d|c %{ nop %sh{
-  printf %s "$kak_main_reg_dquote" | xsel -ib
+  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
 
-map global user p <a-!>pbpaste<ret>'
+map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+
+
 # paste large stuff from clipboard
 # extract rule from parse tree in latex tikz tree syntax
 map global user r Zf.lf<space>Hyo<esc>F<esc>PA<space><minus><gt><space><esc>zf[f.lf<space>Hyjpzf[mf.lf<space>HyjA<space><esc>pz
