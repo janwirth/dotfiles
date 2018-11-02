@@ -12,7 +12,7 @@ add-highlighter global/ number-lines -hlcursor -separator ' '
 add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -lf ' '
 #add-highlighter global dynregex '%reg{/}' 0:default,+u
-colorscheme gruvbox
+# colorscheme gruvbox
 
 hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard

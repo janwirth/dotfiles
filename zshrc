@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.npm/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -181,10 +182,17 @@ function gcol {
 
 
 
-source ~/dotfiles/pomodoro/pomodoro.sh
+# source ~/dotfiles/pomodoro/pomodoro.sh
 source ~/dotfiles/rgki.sh
 source ~/dotfiles/rebase.zsh
 
 alias work="pomo && pomo -s"
 
 alias gitrefine="git rebase -i HEAD~10"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/jan/tuna-backend/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/jan/tuna-backend/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh
