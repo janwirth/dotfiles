@@ -19,6 +19,7 @@ hook global NormalKey y|d|c %{ nop %sh{
 }}
 
 map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+map global user n '<esc>:buffer-next<ret>'
 
 
 # paste large stuff from clipboard
@@ -46,4 +47,14 @@ define-command trim-whitespaces -docstring "Remove trailing whitespace from ever
     }
 }
 
+colorscheme gruvbox
+
 source ~/dotfiles/find.kak
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+
+plug "ul/kak-lsp" do %{
+    cargo build --release --locked
+    cargo install --force
+}
+
+eval %sh{kak-lsp --kakoune -s $kak_session}

@@ -3,7 +3,7 @@
 	ignorecase = false
 [user]
 	name = Jan Wirth
-	email = jan.wirth@mercedes-benz.io
+	email = jan@scalab.app
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

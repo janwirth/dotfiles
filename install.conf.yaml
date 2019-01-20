@@ -19,6 +19,10 @@
       path: chunkwmrc
     ~/.xinitrc:
       path: xinitrc
+    ~/.Xmodmap:
+      path: xmodmap
+    ~/.config/i3/config:
+      path: i3
     ~/.spectrwm.conf:
       path: spectrwm.conf
     ~/.keymap.xkb:

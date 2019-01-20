@@ -152,9 +152,11 @@ alias decompress='7z x $@'
 alias ns='npm start'
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
+export APPSPATH=$HOME/apps
 export GOPATH=$HOME/goprojects
 
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$APPSPATH/bin
 
 # usage: transfer some_file another_file
 # will transfer changes from some_file to another_file
