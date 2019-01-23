@@ -170,3 +170,4 @@ bar {
 }
 exec_always "setxkbmap -layout us -variant colemak -option caps:escape"
 exec_always "xmodmap ~/.Xmodmap"
+exec --no-startup-id "i3-battery-popup -n -N"
