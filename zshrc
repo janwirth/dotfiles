@@ -62,7 +62,7 @@ ZSH_THEME="refined"
 plugins=(
   git
   fasd
-  fuck
+  # fuck
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -171,7 +171,7 @@ function ka () {
   kak -c `project` $0
 }
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 function currentBranch () {
   git branch | grep \* | cut -d ' ' -f2
