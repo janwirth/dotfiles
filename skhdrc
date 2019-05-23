@@ -31,7 +31,8 @@
 
 
 # open terminal, blazingly fast compared to iTerm/Hyper
-cmd - return : open -na /Applications/Kitty.app
+# cmd - return : open -na /Applications/Kitty.app
+cmd - return : osascript -e 'tell application "Terminal to activate' -e 'tell application "System Events" to tell process "Terminal" to keystroke "n" using command down'
 
 # close focused window
 fn - w : chunkc tiling::window --close

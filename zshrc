@@ -198,3 +198,9 @@ alias gitrefine="git rebase -i HEAD~10"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/wirthjan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc'; fi

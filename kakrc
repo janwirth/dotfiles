@@ -15,10 +15,12 @@ add-highlighter global/ show-whitespaces -lf ' '
 # colorscheme gruvbox
 
 hook global NormalKey y|d|c %{ nop %sh{
-  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+  # printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+  printf %s "$kak_main_reg_dquote" | pbcopy
 }}
 
-map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+# map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+map global user p '<a-!>pbpaste<ret>'
 map global user n '<esc>:buffer-next<ret>'
 
 
@@ -50,11 +52,11 @@ define-command trim-whitespaces -docstring "Remove trailing whitespace from ever
 # colorscheme gruvbox
 
 source ~/dotfiles/find.kak
-source "%val{config}/plugins/plug.kak/rc/plug.kak"
+# source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "ul/kak-lsp" do %{
-    cargo build --release --locked
-    cargo install --force
-}
-
-eval %sh{kak-lsp --kakoune -s $kak_session}
+# plug "ul/kak-lsp" do %{
+#     cargo build --release --locked
+#     cargo install --force
+# }
+# 
+# eval %sh{kak-lsp --kakoune -s $kak_session}
