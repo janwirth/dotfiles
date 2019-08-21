@@ -182,6 +182,7 @@ function gcol {
 }
 
 
+alias uglycopy="uglifyjs | pbcopy"
 
 
 # source ~/dotfiles/pomodoro/pomodoro.sh

@@ -127,7 +127,10 @@ fn - x : chunkc tiling::desktop --mirror horizontal
 fn - a : chunkc tiling::desktop --toggle offset
 
 # toggle window fullscreen
-fn - f : chunkc tiling::window --toggle fullscreen
+# 0x38 - f : chunkc tiling::window --toggle fullscreen
+# fn - f : chunkc tiling::window --toggle fullscreen
+shift - 0x0A: chunkc tiling::window --toggle fullscreen
+
 
 # toggle window native fullscreen
 # shift + fn - f : chunkc tiling::window --toggle native-fullscreen

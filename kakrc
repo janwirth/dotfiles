@@ -1,5 +1,5 @@
-hook global WinCreate .* %{set global indentwidth 2}
-hook global WinCreate .* %{set global tabstop 2}
+hook global WinCreate .* %{set global indentwidth 4}
+hook global WinCreate .* %{set global tabstop 4}
 hook global WinCreate .* %{hook window InsertChar \t %{ exec -draft h@}}
 
 hook global InsertChar \( 'exec )<left>'
