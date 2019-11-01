@@ -205,3 +205,21 @@ if [ -f '/Users/wirthjan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wirthj
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+#!/usr/bin/env bash
+
+hex2rgb() {
+    hex=$(echo "${1^^}" | sed 's/#//g')
+
+    a=$(echo $hex | cut -c-2)
+    b=$(echo $hex | cut -c3-4)
+    c=$(echo $hex | cut -c5-6)
+
+    r=$(echo "ibase=16; $a" | bc)
+    g=$(echo "ibase=16; $b" | bc)
+    b=$(echo "ibase=16; $c" | bc)
+
+    echo ${1^^}
+    echo $r $g $b
+}
