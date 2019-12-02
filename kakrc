@@ -39,6 +39,7 @@ hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
 hook global BufCreate .*.purs %{ set buffer filetype haskell }
 hook global BufCreate .*.(es6|tsx?) %{ set buffer filetype javascript }
+# hook global BufCreate .*.js %{ rename-buffer 💩}
 
 define-command trim-whitespaces -docstring "Remove trailing whitespace from every line" %{
    try %{
