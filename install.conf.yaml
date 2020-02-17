@@ -5,17 +5,15 @@
 - clean: ['~']
 
 - link:
+    ~/.alacritty.yml:
+      path: alacritty.yml
     ~/.zshrc:
-      force: true
       path: zshrc
     ~/.gitconfig:
-      force: true
       path: gitconfig
     ~/.skhdrc:
-      force: true
       path: skhdrc
     ~/.chunkwmrc:
-      force: true
       path: chunkwmrc
     ~/.xinitrc:
       path: xinitrc

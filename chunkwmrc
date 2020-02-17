@@ -13,7 +13,7 @@ chunkc core::log_file stdout
 #       - none, debug, warn, error
 #
 
-chunkc core::log_level error
+chunkc core::log_level debug
 
 #
 # NOTE: specify the absolutepath to the directory to use when

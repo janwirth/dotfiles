@@ -1,0 +1,85 @@
+# Font configuration (changes require restart)
+font:
+  # The normal (roman) font face to use.
+  # Style can be specified to pick a specific face.
+  normal:
+    family: "JetBrains Mono"
+    # family: "Fira Code"
+    # family: "Source Code Pro"
+    # style: Retina
+
+  # The bold font face
+  bold:
+    family: "JetBrains Mono"
+    # family: "Fira Code"
+    # family: "Source Code Pro"
+
+  # The italic font face
+  italic:
+    family: "JetBrains Mono"
+    # family: "Fira Code"
+    # family: "Source Code Pro"
+    # style: "Medium Italic"
+
+  # Point size of the font
+  size: 14.0
+key_bindings:
+  - { key: N, mods: Command, action: SpawnNewInstance }
+
+# Configuration for Alacritty, the GPU enhanced terminal emulator
+
+# Any items in the `env` entry below will be added as
+# environment variables. Some entries may override variables
+# set by alacritty it self.
+env:
+  # TERM env customization.
+  #
+  # If this property is not set, alacritty will set it to xterm-256color.
+  #
+  # Note that some xterm terminfo databases don't declare support for italics.
+  # You can verify this by checking for the presence of `smso` and `sitm` in
+  # `infocmp xterm-256color`.
+  TERM: xterm-256color
+
+window:
+  # Adds this many blank pixels of padding around the window
+  # Units are physical pixels; this is not DPI aware.
+  # (change requires restart)
+  padding:
+    x: 2
+    y: 2
+
+
+# Colors (Solarized Light)
+colors:
+  # Default colors
+  primary:
+    background: '0xfdf6e3' # base3
+    foreground: '0x657b83' # base00
+
+  # Cursor colors
+  cursor:
+    text:   '0xfdf6e3' # base3
+    cursor: '0x657b83' # base00
+
+  # Normal colors
+  normal:
+    black:   '0x073642' # base02
+    red:     '0xdc322f' # red
+    green:   '0x859900' # green
+    yellow:  '0xb58900' # yellow
+    blue:    '0x268bd2' # blue
+    magenta: '0xd33682' # magenta
+    cyan:    '0x2aa198' # cyan
+    white:   '0xeee8d5' # base2
+
+  # Bright colors
+  bright:
+    black:   '0x002b36' # base03
+    red:     '0xcb4b16' # orange
+    green:   '0x586e75' # base01
+    yellow:  '0x657b83' # base00
+    blue:    '0x839496' # base0
+    magenta: '0x6c71c4' # violet
+    cyan:    '0x93a1a1' # base1
+    white:   '0xfdf6e3' # base3
