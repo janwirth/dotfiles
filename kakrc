@@ -2,6 +2,10 @@ hook global WinCreate .* %{set global indentwidth 4}
 hook global WinCreate .* %{set global tabstop 4}
 hook global WinCreate .* %{hook window InsertChar \t %{ exec -draft h@}}
 
+hook global NormalKey y|d|c %{ nop %sh{
+  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+}}
+
 hook global InsertChar \( 'exec )<left>'
 hook global InsertChar \{ 'exec }<left>'
 hook global InsertChar \[ 'exec ]<left>'
@@ -19,8 +23,8 @@ hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | pbcopy
 }}
 
-# map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
-map global user p '<a-!>pbpaste<ret>'
+map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+# map global user p '<a-!>pbpaste<ret>'
 map global user n '<esc>:buffer-next<ret>'
 
 
@@ -61,3 +65,5 @@ source ~/dotfiles/find.kak
 # }
 # 
 # eval %sh{kak-lsp --kakoune -s $kak_session}
+
+
