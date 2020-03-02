@@ -2,6 +2,7 @@
 export PATH=$HOME/.npm/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export LC_ALL=en_US.UTF-8
+stty intr \^k
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
