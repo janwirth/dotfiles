@@ -1,6 +1,7 @@
 [core]
 	excludesfile = /home/jan/.gitignore
 	ignorecase = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	name = Jan Wirth
 	email = jan@scalab.app

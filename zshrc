@@ -210,7 +210,7 @@ if [ -f '/Users/wirthjan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wirthj
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc'; fi
 
-source ~/z/z.sh
-
 alias int="sh ~/.xinitrc"
 
+
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
