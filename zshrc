@@ -1,8 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.npm/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export FPATH=$FPATH:/usr/local/share/zsh-navigation-tools
 export LC_ALL=en_US.UTF-8
-stty intr \^k
+# stty intr \^k
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -80,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='kak'
+  export EDITOR='hx'
 fi
 
 # Compilation flags
@@ -113,6 +114,7 @@ zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
 
 ### MY STUFF
+alias kak=hx
 alias ga="git add"
 alias amend="git commit --amend --no-edit"
 
@@ -204,13 +206,15 @@ alias gitrefine="git rebase -i HEAD~10"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /home/jan/tuna-backend/node_modules/tabtab/.completions/sls.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/wirthjan/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wirthjan/google-cloud-sdk/completion.zsh.inc'; fi
-
 alias int="sh ~/.xinitrc"
 
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/janwirth/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/janwirth/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/janwirth/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/janwirth/google-cloud-sdk/completion.zsh.inc'; fi
+
+/usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh

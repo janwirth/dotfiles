@@ -2,21 +2,21 @@
 font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
-  normal:
-    family: "JetBrains Mono"
+  # normal:
+    # family: "JetBrains Mono"
     # family: "Fira Code"
     # family: "Source Code Pro"
     # style: Retina
 
   # The bold font face
-  bold:
-    family: "JetBrains Mono"
+  # bold:
+    # family: "JetBrains Mono"
     # family: "Fira Code"
     # family: "Source Code Pro"
 
   # The italic font face
-  italic:
-    family: "JetBrains Mono"
+  # italic:
+    # family: "JetBrains Mono"
     # family: "Fira Code"
     # family: "Source Code Pro"
     # style: "Medium Italic"

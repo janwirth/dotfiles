@@ -160,3 +160,6 @@ fn + ctrl - d : chunkc tiling::desktop --layout float
 fn + ctrl - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
 
 fn + ctrl - s : cd owvs-ui && npm start
+
+ctrl - 1 : yabai -m window --toggle zoom-fullscreen
+0x0A : alacritty
