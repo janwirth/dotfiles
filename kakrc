@@ -23,10 +23,11 @@ hook global NormalKey y|d|c %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | pbcopy
 }}
 
-map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
-# map global user p '<a-!>pbpaste<ret>'
+# map global user p '<a-!>xsel <minus><minus>clipboard<ret>'
+map global user p '<a-!>pbpaste<ret>'
 map global user n '<esc>:buffer-next<ret>'
 
+map global user s ':write<ret>'
 
 # paste large stuff from clipboard
 # extract rule from parse tree in latex tikz tree syntax
@@ -41,7 +42,7 @@ map global user o F:<esc>H:b<space>%{<backspace>reg{.}<ret>
 
 hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
-hook global BufCreate .*.purs %{ set buffer filetype haskell }
+# hook global BufCreate .*.purs %{ set buffer filetype haskell }
 hook global BufCreate .*.(es6|tsx?) %{ set buffer filetype javascript }
 # hook global BufCreate .*.js %{ rename-buffer 💩}
 

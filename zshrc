@@ -1,4 +1,7 @@
 # If you come from bash you might have to change your $PATH.
+
+
+ZSH_DISABLE_COMPFIX=true
 export PATH=$HOME/.npm/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export FPATH=$FPATH:/usr/local/share/zsh-navigation-tools
@@ -114,7 +117,7 @@ zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
 
 ### MY STUFF
-alias kak=hx
+# alias kak=hx
 alias ga="git add"
 alias amend="git commit --amend --no-edit"
 
