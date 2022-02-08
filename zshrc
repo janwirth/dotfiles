@@ -220,4 +220,10 @@ if [ -f '/Users/janwirth/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/janwir
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/janwirth/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/janwirth/google-cloud-sdk/completion.zsh.inc'; fi
 
-/usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
+# /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
+
+export PATH="/opt/homebrew/bin:$PATH"
+
+ export FPATH="/usr/local/share/zsh/functions:$FPATH"
+
+export PATH="/Users/janwirthprivate/compiler/dist-newstyle/build/aarch64-osx/ghc-8.10.7/elm-0.19.1/x/elm/opt/build/elm:$PATH"

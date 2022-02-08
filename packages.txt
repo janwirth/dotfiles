@@ -1,0 +1,11 @@
+alacritty
+altair-graphql-client
+obsidian
+soulseek
+visual-studio-code
+zoom
+aldente
+google-chrome
+slack
+spotify
+whatsapp
