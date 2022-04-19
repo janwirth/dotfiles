@@ -6,7 +6,7 @@ CURRENTUSEREMAIL=$(git config user.email)
 
 # My mail addresses
 EMPLOYED="jan.wirth@mercedes-benz.io"
-ENTERPRISE="jan@scalab.app"
+ENTERPRISE="contact@jan-wirth.de"
 FREELANCE="jan_wirth@lesz.cool"
 
 if [ "$CURRENTUSEREMAIL" == "$ENTERPRISE" ]; then

@@ -4,7 +4,7 @@
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	name = Jan Wirth
-	email = jan@scalab.app
+	email = contact@jan-wirth.de
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
