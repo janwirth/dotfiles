@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 
 
@@ -226,7 +228,6 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 export FPATH="/usr/local/share/zsh/functions:$FPATH"
 
-export PATH="/Users/janwirthprivate/compiler/dist-newstyle/build/aarch64-osx/ghc-8.10.7/elm-0.19.1/x/elm/opt/build/elm:$PATH"
-export PATH="/Users/janwirth/bin:$PATH"
 alias z='fasd_cd -d'  
-
+source $HOME/.cargo/env
+export PATH="/Users/$HOME/dotfiles/bin:$PATH"

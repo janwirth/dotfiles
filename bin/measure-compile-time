@@ -1,0 +1,33 @@
+#! /bin/sh
+if [ $# -eq 0 ]
+  then
+    MAIN="src/Main.elm";
+  else
+    MAIN=$1;
+fi
+set -e pipefail;
+# only output seconds
+# clear cache
+# recurse tree if no arg is given
+echo measuring $MAIN
+rm -rf elm-stuff
+C=$(git rev-parse HEAD)
+alias compile='elm make $MAIN --output=node_modules/compile-output.html'
+alias compilesilent='compile >/dev/null'
+T=`(time (compilesilent)) 2>&1 || compile`
+if [ $# -eq 0 ]
+  then
+    echo $C $MAIN $T >> ~/compile-times-per-commit
+fi
+if [ $# -eq 1 ]
+  then
+    echo $C $MAIN $T >> ~/compile-times-per-file
+fi
+echo measured $C $MAIN $T
+
+# recurse tree if no arg is given
+if [ $# -eq 0 ]
+  then
+    git checkout - -q
+    measure-compile-time
+fi
