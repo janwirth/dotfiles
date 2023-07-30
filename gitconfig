@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/janwirthprivate/.gitignore
+	excludesfile = /Users/janwirth/.gitignore
 	ignorecase = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]

@@ -9,6 +9,8 @@
       path: alacritty.yml
     ~/.zshrc:
       path: zshrc
+    ~/.yabairc:
+      path: yabairc
     ~/.gitconfig:
       path: gitconfig
     ~/.skhdrc:

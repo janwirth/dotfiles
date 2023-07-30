@@ -1,5 +1,4 @@
 # Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 
 
@@ -107,7 +106,6 @@ fi
 
 
 ### ZNT's installer added snippet ###
-fpath=( "$fpath[@]" "$HOME/.config/znt/zsh-navigation-tools" )
 autoload n-aliases n-cd n-env n-functions n-history n-kill n-list n-list-draw n-list-input n-options n-panelize n-help
 autoload znt-usetty-wrapper znt-history-widget znt-cd-widget znt-kill-widget
 alias naliases=n-aliases ncd=n-cd nenv=n-env nfunctions=n-functions nhistory=n-history
@@ -130,11 +128,10 @@ function k () kak `fasd -f $@`
 function rid () less `fasd -f $@`
 
 alias rgl='rg -l'
-alias pip='pip3'
 
-alias tomp3='youtube-dl --audio-quality=320K -x --audio-format mp3'
+alias tomp3='yt-dlp --audio-quality=320K -x --audio-format mp3'
 
-alias h='n-history'     # interactive file selection
+alias h='n-history'     # interactive history selection
 
 # vim keybindings
 bindkey -v
@@ -231,3 +228,29 @@ export FPATH="/usr/local/share/zsh/functions:$FPATH"
 alias z='fasd_cd -d'  
 source $HOME/.cargo/env
 export PATH="/Users/$HOME/dotfiles/bin:$PATH"
+
+source /opt/homebrew/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+PATH=$(pyenv root)/shims:$PATH
+
+alias j8="export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home; java -version"
+
+alias gource-summary=""
+alias first-commit-in-year='git log --reverse | head -n3 | tail -n1 | cut -f8 -d" "'
+# seconds per day = 1/365 = 1 year = one secoind
+# for a one-minute summmary of a year we need 1/365 * 60
+# for a one-minute for all years we need 1/365 * 60 / years_sinc_start
+
+alias gource-one-minute='gource --seconds-per-day $((1.0/365 * 60 /8))'
+
+# pnpm
+export PNPM_HOME="/Users/janwirth/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"

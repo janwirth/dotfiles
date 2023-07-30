@@ -42,6 +42,7 @@ map global user o F:<esc>H:b<space>%{<backspace>reg{.}<ret>
 
 hook global BufCreate .vue %{ set buffer filetype xml }
 hook global BufCreate .*.elm %{ set buffer filetype haskell }
+hook global BufCreate .*.roc %{ set buffer filetype haskell }
 # hook global BufCreate .*.purs %{ set buffer filetype haskell }
 hook global BufCreate .*.(es6|tsx?) %{ set buffer filetype javascript }
 # hook global BufCreate .*.js %{ rename-buffer 💩}
