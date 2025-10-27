@@ -72,6 +72,7 @@ plugins=(
   # fuck
 )
 
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -222,18 +223,19 @@ if [ -f '/Users/janwirth/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 # /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/Users/janwirth/.bun/bin/:$PATH"
 
 export FPATH="/usr/local/share/zsh/functions:$FPATH"
 
-alias z='fasd_cd -d'  
-source $HOME/.cargo/env
+# alias z='fasd -d'  
+# source $HOME/.cargo/env
 export PATH="/Users/$HOME/dotfiles/bin:$PATH"
 
 source /opt/homebrew/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-PATH=$(pyenv root)/shims:$PATH
+# . $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/completions/asdf.bash
+# PATH=$(pyenv root)/shims:$PATH
 
 alias j8="export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home; java -version"
 
@@ -254,3 +256,32 @@ esac
 # pnpm end
 
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
+eval "$(fasd --init auto)"
+
+
+
+# bun completions
+[ -s "/Users/janwirth/.bun/_bun" ] && source "/Users/janwirth/.bun/_bun"
+
+
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby@3.1/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
+# Task Master aliases added on 9/7/2025
+alias tm='task-master'
+alias taskmaster='task-master'
+alias yarn="corepack yarn"
+alias yarnpkg="corepack yarnpkg"
+alias pnpm="corepack pnpm"
+alias pnpx="corepack pnpx"
+alias npm="corepack npm"
+alias npx="corepack npx"
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"

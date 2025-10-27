@@ -1,1 +1,2 @@
 yabai -m config layout bsp
+yabai -m rule --add app='^Hand Mirror$'
