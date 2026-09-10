@@ -11,3 +11,4 @@ case "$OSTYPE" in
     [[ -f ~/dotfiles/zsh/linux.zsh ]] && source ~/dotfiles/zsh/linux.zsh
     ;;
 esac
+
