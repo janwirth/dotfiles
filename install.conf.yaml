@@ -1,53 +1,40 @@
 - defaults:
     link:
       relink: true
+      create: true
 
 - clean: ['~']
 
 - link:
-    ~/.tmux.conf:
-      path: tmux.conf
-    ~/.alacritty.yml:
-      path: alacritty.yml
-    ~/.zshrc:
-      path: zshrc
-    ~/.yabairc:
-      path: yabairc
-    ~/.gitconfig:
-      path: gitconfig
-    ~/.skhdrc:
-      path: skhdrc
-    ~/.chunkwmrc:
-      path: chunkwmrc
-    ~/.xinitrc:
-      path: xinitrc
-    ~/.Xmodmap:
-      path: xmodmap
-    ~/.config/i3/config:
-      path: i3
-    ~/.spectrwm.conf:
-      path: spectrwm.conf
-    ~/.local/bin/i3-battery-popup:
-      path: i3-battery-popup
-    ~/.keymap.xkb:
-      path: keymap.xkb
-    ~/.gitignore: gitignore
+    ~/.zshrc: zshrc
+    ~/.tmux.conf: tmux.conf
     ~/.config/kak/kakrc: kakrc
+    ~/.gitconfig: gitconfig
+    ~/.gitignore: gitignore
     ~/.local/bin/inc: increment.sh
     ~/.local/bin/dec: decrement.sh
-    ~/.local/bin/toggleGit: toggleGit.sh
     ~/.local/bin/diff-so-fancy: diff-so-fancy
     ~/.local/bin/diff-highlight: diff-highlight
+    ~/.claude/settings.json: claude/settings.json
+    ~/.claude/CLAUDE.md: claude/CLAUDE.md
+    ~/.claude/statusline.sh: claude/statusline.sh
+    # macOS only
+    ~/.yabairc:
+      path: yabairc
+      if: '[ "$(uname)" = Darwin ]'
+    ~/.skhdrc:
+      path: skhdrc
+      if: '[ "$(uname)" = Darwin ]'
     ~/Library/Preferences/com.apple.Terminal.plist:
-      force: true
       path: com.apple.Terminal.plist
+      force: true
+      if: '[ "$(uname)" = Darwin ]'
     /Library/Keyboard Layouts/Colemak.keylayout:
       path: Colemak.keylayout
-    ~/.claude/settings.json:
-      path: claude/settings.json
-    ~/.claude/commands:
-      path: claude/commands
-
+      if: '[ "$(uname)" = Darwin ]'
 
 - shell:
   - git config --global core.excludesfile ~/.gitignore
+  - '[ -d ~/.oh-my-zsh ] || RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+  - '[ -d ~/.config/znt/zsh-navigation-tools ] || git clone --depth 1 https://github.com/z-shell/zsh-navigation-tools ~/.config/znt/zsh-navigation-tools'
+  - '[ -d ~/.config/kak/plugins/kakoune-find ] || git clone --depth 1 https://github.com/occivink/kakoune-find ~/.config/kak/plugins/kakoune-find'

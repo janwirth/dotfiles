@@ -21,6 +21,9 @@ else
   export EDITOR='kak'
 fi
 
+# vim keybindings (must precede custom bindkeys — it resets the keymap)
+bindkey -v
+
 # ZNT (zsh-navigation-tools) — loaded if installed
 if [[ -d "$HOME/.config/znt/zsh-navigation-tools" ]]; then
   fpath=( "$fpath[@]" "$HOME/.config/znt/zsh-navigation-tools" )
@@ -40,8 +43,7 @@ if command -v n-history >/dev/null 2>&1 \
 fi
 setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 
-# vim keybindings + history hygiene
-bindkey -v
+# history hygiene
 export HISTCONTROL=ignoreboth:erasedups
 
 # Paths
@@ -49,7 +51,6 @@ export APPSPATH=$HOME/apps
 export GOPATH=$HOME/goprojects
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$APPSPATH/bin
-export PATH="$HOME/dotfiles/bin:$PATH"
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
@@ -64,13 +65,13 @@ alias compress='7z a -tzip $@'
 alias decompress='7z x $@'
 alias ns='npm start'
 alias notes="kak ~/notes"
-alias int="sh ~/.xinitrc"
 alias gitrefine="git rebase -i HEAD~10"
 alias first-commit-in-year='git log --reverse | head -n3 | tail -n1 | cut -f8 -d" "'
 alias gource-one-minute='gource --seconds-per-day $((1.0/365 * 60 /8))'
 alias work="pomo && pomo -s"
 alias tm='task-master'
 alias taskmaster='task-master'
+alias c="SANDBOX=1 claude --dangerously-skip-permissions"
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
 # corepack proxies
@@ -99,10 +100,6 @@ function currentBranch () {
   git branch | grep \* | cut -d ' ' -f2
 }
 function gcol { git checkout @{-1} }
-
-# Local scripts
-source ~/dotfiles/rgki.sh
-source ~/dotfiles/rebase.zsh
 
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 

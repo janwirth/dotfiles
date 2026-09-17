@@ -4,9 +4,16 @@
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 
 # persistent ssh-agent via systemd user unit
-if [[ -n "$XDG_RUNTIME_DIR" ]]; then
-  _sock="$XDG_RUNTIME_DIR/ssh-agent.socket"
-  [[ -S "$_sock" ]] && export SSH_AUTH_SOCK="$_sock"
+# Socket path varies: Ubuntu 24.04+'s stock ssh-agent.socket unit (from
+# openssh-client) listens on openssh_agent; older/custom units use
+# ssh-agent.socket. Try both rather than assuming one.
+if [[ -z "$SSH_AUTH_SOCK" && -n "$XDG_RUNTIME_DIR" ]]; then
+  for _sock in "$XDG_RUNTIME_DIR/openssh_agent" "$XDG_RUNTIME_DIR/ssh-agent.socket"; do
+    if [[ -S "$_sock" ]]; then
+      export SSH_AUTH_SOCK="$_sock"
+      break
+    fi
+  done
   unset _sock
 fi
 

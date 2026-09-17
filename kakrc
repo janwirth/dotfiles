@@ -58,7 +58,7 @@ define-command trim-whitespaces -docstring "Remove trailing whitespace from ever
 
 # colorscheme gruvbox
 
-source ~/dotfiles/find.kak
+try %{ source "%val{config}/plugins/kakoune-find/find.kak" }
 # source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 # plug "ul/kak-lsp" do %{
