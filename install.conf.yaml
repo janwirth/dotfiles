@@ -34,7 +34,6 @@
       if: '[ "$(uname)" = Darwin ]'
 
 - shell:
-  - git config --global core.excludesfile ~/.gitignore
   - '[ -d ~/.oh-my-zsh ] || RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
   - '[ -d ~/.config/znt/zsh-navigation-tools ] || git clone --depth 1 https://github.com/z-shell/zsh-navigation-tools ~/.config/znt/zsh-navigation-tools'
   - '[ -d ~/.config/kak/plugins/kakoune-find ] || git clone --depth 1 https://github.com/occivink/kakoune-find ~/.config/kak/plugins/kakoune-find'

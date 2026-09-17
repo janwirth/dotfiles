@@ -101,8 +101,6 @@ function currentBranch () {
 }
 function gcol { git checkout @{-1} }
 
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
