@@ -1,9 +1,45 @@
 #!/usr/bin/env bash
-# infra: where am I, is the tailnet up, is the infrastructure repo clean,
-# and which make targets exist (read from the Makefile's `## ` comments).
+# infra            where am I, tailnet state, repo state, commands by layer
+# infra help TARGET  the full docs for one make target (comment block + recipe)
+#
+# Commands come from the Makefiles: every documented target has
+# `target: ## [layer] one-line summary`. Layers: setup, foundation, dev.
 set -uo pipefail
 
 INFRA_DIR="${INFRA_DIR:-$HOME/infrastructure}"
+cd "$INFRA_DIR" 2>/dev/null || { echo "repo not found at $INFRA_DIR (set INFRA_DIR)" >&2; exit 1; }
+
+# targets LAYER FILE — "make target  summary" lines for one layer.
+targets() {
+  awk -F' ## ' -v layer="$1" '
+    /^[a-z-]+:.* ## \[/ {
+      split($1, t, ":"); match($2, /^\[[a-z]+\] /)
+      if (substr($2, 2, RLENGTH - 3) == layer)
+        printf "  make %-20s %s\n", t[1], substr($2, RLENGTH + 1)
+    }' "$2"
+}
+
+# help TARGET — the comment block above the target, then the recipe.
+help() {
+  awk -v target="$1" '
+    /^#/ { doc = doc $0 "\n"; next }
+    $0 ~ "^" target ":" {
+      sub(/ ## \[[a-z]+\] /, " — "); print $0; print doc
+      while ((getline line) > 0 && line ~ /^\t/) print line
+      found = 1; exit
+    }
+    { doc = "" }
+    END { if (!found) { print "no target " target; exit 1 } }
+  ' Makefile
+}
+
+case "${1:-}" in
+  help)
+    [[ -n "${2:-}" ]] || { echo "usage: infra help TARGET" >&2; exit 1; }
+    help "$2"; exit ;;
+  "") ;;
+  *) echo "usage: infra | infra help TARGET" >&2; exit 1 ;;
+esac
 
 if [[ -f /etc/dev-vps ]]; then
   echo "host:    $(cat /etc/dev-vps) (dev box)"
@@ -20,17 +56,27 @@ else
   echo "tailnet: tailscale not installed"
 fi
 
-if [[ -d "$INFRA_DIR/.git" ]]; then
-  cd "$INFRA_DIR"
-  dirty="$(git status --porcelain | wc -l | tr -d ' ')"
-  echo "repo:    $INFRA_DIR  $(git status -sb | head -1 | sed 's/^## //')  ${dirty} uncommitted"
-  echo
-  echo "commands (run in $INFRA_DIR):"
-  for mk in Makefile projects/*/Makefile; do
-    [[ -f "$mk" ]] || continue
-    [[ "$mk" == Makefile ]] || echo "  # $(dirname "$mk")"
-    awk -F' ## ' '/^[a-z-]+:.* ## /{split($1,t,":"); printf "  make %-20s %s\n", t[1], $2}' "$mk"
-  done
-else
-  echo "repo:    not found at $INFRA_DIR (set INFRA_DIR)"
-fi
+dirty="$(git status --porcelain | wc -l | tr -d ' ')"
+echo "repo:    $INFRA_DIR  $(git status -sb | head -1 | sed 's/^## //')  ${dirty} uncommitted"
+
+cat <<EOF
+
+setup — once per machine
+$(targets setup Makefile)
+
+foundation — Headscale control-plane, the tailnet everything else joins
+$(targets foundation Makefile)
+
+environment: dev — the dev box
+$(targets dev Makefile)
+
+Details: infra help TARGET
+
+COMING SOON — one directory per environment, the CLI follows the split:
+  infra foundation provision|configure|ssh     control-plane only
+  infra env dev ssh|zed|graph|configure        today's root targets
+  infra env ezpz up|down|restore|ssh|configure specs/002-ezpz-prod.md
+  infra env NAME ...                           projects/NAME/Makefile
+Each environment keeps its own Tofu state, secrets.yaml and Makefile;
+foundation stays shared. Until then: cd projects/NAME && make TARGET.
+EOF
