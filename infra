@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# infra: where am I, is the tailnet up, is the infrastructure repo clean,
+# and which make targets exist (read from the Makefile's `## ` comments).
+set -uo pipefail
+
+INFRA_DIR="${INFRA_DIR:-$HOME/infrastructure}"
+
+if [[ -f /etc/dev-vps ]]; then
+  echo "host:    $(cat /etc/dev-vps) (dev box)"
+else
+  echo "host:    $(hostname -s) (laptop)"
+fi
+
+if command -v tailscale >/dev/null 2>&1; then
+  ts="$(tailscale status --json 2>/dev/null || echo '{}')"
+  state="$(jq -r '.BackendState // "unknown"' <<<"$ts")"
+  peers="$(jq -r '[.Peer // {} | .[] | select(.HostName | test("^(dev|headscale)")) | "\(.HostName)=\(if .Online then "online" else "offline" end)"] | join("  ")' <<<"$ts")"
+  echo "tailnet: $state${peers:+  $peers}"
+else
+  echo "tailnet: tailscale not installed"
+fi
+
+if [[ -d "$INFRA_DIR/.git" ]]; then
+  cd "$INFRA_DIR"
+  dirty="$(git status --porcelain | wc -l | tr -d ' ')"
+  echo "repo:    $INFRA_DIR  $(git status -sb | head -1 | sed 's/^## //')  ${dirty} uncommitted"
+  echo
+  echo "commands (run in $INFRA_DIR):"
+  for mk in Makefile projects/*/Makefile; do
+    [[ -f "$mk" ]] || continue
+    [[ "$mk" == Makefile ]] || echo "  # $(dirname "$mk")"
+    awk -F' ## ' '/^[a-z-]+:.* ## /{split($1,t,":"); printf "  make %-20s %s\n", t[1], $2}' "$mk"
+  done
+else
+  echo "repo:    not found at $INFRA_DIR (set INFRA_DIR)"
+fi

@@ -13,6 +13,7 @@
     ~/.gitignore: gitignore
     ~/.local/bin/inc: increment.sh
     ~/.local/bin/dec: decrement.sh
+    ~/.local/bin/infra: infra
     ~/.local/bin/diff-so-fancy: diff-so-fancy
     ~/.local/bin/diff-highlight: diff-highlight
     ~/.claude/settings.json: claude/settings.json
