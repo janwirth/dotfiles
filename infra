@@ -39,7 +39,7 @@ help() {
 case "${1:-}" in
   help)
     [[ -n "${2:-}" ]] || { echo "usage: infra help TARGET | infra help ENV TARGET" >&2; exit 1; }
-    if [[ -n "${3:-}" ]]; then help "$3" projects/$2/Makefile environments/$2/Makefile mk/common.mk
+    if [[ -n "${3:-}" ]]; then help "$3" $(ls projects/$2/Makefile environments/$2/Makefile 2>/dev/null) mk/common.mk
     else help "$2" Makefile mk/common.mk; fi
     exit ;;
   "") ;;
