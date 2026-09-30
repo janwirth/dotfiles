@@ -39,7 +39,7 @@ help() {
 case "${1:-}" in
   help)
     [[ -n "${2:-}" ]] || { echo "usage: infra help TARGET | infra help ENV TARGET" >&2; exit 1; }
-    if [[ -n "${3:-}" ]]; then help "$3" "projects/$2/Makefile" mk/common.mk
+    if [[ -n "${3:-}" ]]; then help "$3" projects/$2/Makefile environments/$2/Makefile mk/common.mk
     else help "$2" Makefile mk/common.mk; fi
     exit ;;
   "") ;;
@@ -75,11 +75,11 @@ $(targets foundation Makefile mk/common.mk)
 environment: dev — the dev box
 $(targets dev Makefile)
 EOF
-for mk in projects/*/Makefile; do
+for mk in projects/*/Makefile environments/*/Makefile; do
   [[ -f "$mk" ]] || continue
   env="$(basename "$(dirname "$mk")")"
   echo
-  echo "environment: $env — cd projects/$env, then:"
+  echo "environment: $env — cd $(dirname "$mk"), then:"
   targets setup "$mk"; targets foundation "$mk"; targets dev "$mk"
 done
 cat <<EOF
