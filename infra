@@ -20,6 +20,10 @@ targets() {
     }' "$@"
 }
 
+# includes FILE — the mk/*.mk files a Makefile includes (environments share
+# mk/devbox.mk), so their targets are listed with the environment's.
+includes() { sed -nE 's|^include \$\(ROOT\)/(mk/[a-z]+\.mk).*|\1|p' "$1"; }
+
 # help TARGET FILE... — the comment block above the target, then the recipe.
 help() {
   local target="$1"; shift
@@ -39,7 +43,7 @@ help() {
 case "${1:-}" in
   help)
     [[ -n "${2:-}" ]] || { echo "usage: infra help TARGET | infra help ENV TARGET" >&2; exit 1; }
-    if [[ -n "${3:-}" ]]; then help "$3" $(ls projects/$2/Makefile environments/$2/Makefile 2>/dev/null) mk/common.mk
+    if [[ -n "${3:-}" ]]; then mk=$(ls projects/$2/Makefile environments/$2/Makefile 2>/dev/null); help "$3" $mk $(includes $mk) mk/common.mk
     else help "$2" Makefile mk/common.mk; fi
     exit ;;
   "") ;;
@@ -80,7 +84,7 @@ for mk in projects/*/Makefile environments/*/Makefile; do
   env="$(basename "$(dirname "$mk")")"
   echo
   echo "environment: $env — cd $(dirname "$mk"), then:"
-  targets setup "$mk"; targets foundation "$mk"; targets dev "$mk"
+  targets setup "$mk" $(includes "$mk"); targets foundation "$mk" $(includes "$mk"); targets dev "$mk" $(includes "$mk")
 done
 cat <<EOF
 
