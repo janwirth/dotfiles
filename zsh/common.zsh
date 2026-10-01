@@ -83,24 +83,24 @@ alias npm="corepack npm"
 alias npx="corepack npx"
 
 # fasd-based helpers (no-op if fasd missing — ok in practice)
-# k: fuzzy-pick file -> kakoune. Candidates: files opened via k anywhere (newest first), then cwd files (newest first).
-# `k md` opens the top fuzzy match directly. No-arg opens fzf.
-_khist=${XDG_DATA_HOME:-$HOME/.local/share}/k_history
-function _kfiles () {
-  { [[ -f $_khist ]] && tac $_khist | while read -r f; do [[ -f $f ]] && echo $f; done
-    rg --files -0 2>/dev/null | xargs -0 ls -t 2>/dev/null | sed "s|^|$PWD/|"
-  } | awk '!seen[$0]++'
+# k: frecency-ranked files you opened with k (anywhere) -> kakoune. Never lists unopened files.
+# zoxide only tracks dirs, so each opened file gets a stub dir under _kroot in its own zoxide DB.
+# `k md` opens the best frecency match directly; `k` alone opens fzf.
+_kroot=${XDG_DATA_HOME:-$HOME/.local/share}/k_files
+function _kz () { _ZO_DATA_DIR=${_kroot:h}/k_zoxide zoxide "$@" }
+function _kfiles () {  # frecency order; stubs of deleted files skipped
+  _kz query -l -- "$@" 2>/dev/null | sed "s|^$_kroot||" | while read -r f; do [[ -f $f ]] && echo $f; done
 }
 function k () {
   local f
-  if [[ $# -gt 0 ]]; then f=$(_kfiles | fzf -f "$*" --tiebreak=index | head -1)
+  if [[ $# -gt 0 ]]; then f=$(_kfiles "$@" | head -1)
   else f=$(_kfiles | fzf --tiebreak=index); fi
   [[ -n $f ]] || return
-  mkdir -p ${_khist:h}; echo $f >> $_khist
+  mkdir -p ${_kroot:h}/k_zoxide "$_kroot$f" && _kz add "$_kroot$f"
   kak "$f"
 }
-function rid () { local f=$(_kfiles | fzf -q "$*" -1 --tiebreak=index); [[ -n $f ]] && less "$f" }
-function rgk () kak `rg -l $1`
+function rid () { local f=$(_kfiles "$@" | head -1); [[ -n $f ]] && less "$f" }
+function rgk () { kak `rg -l $1` }
 
 function transfer () {
   git diff HEAD^ -- $1 > ~/patch_file
