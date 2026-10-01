@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # infra            where am I, tailnet state, repo state, commands by layer
+# infra devsync ENV [PATH...]  laptop -> ~/inbox on dev-ENV (no PATH: clipboard image)
 # infra help TARGET  the full docs for one make target (comment block + recipe)
 #
 # Commands come from the Makefiles: every documented target has
@@ -46,8 +47,9 @@ case "${1:-}" in
     if [[ -n "${3:-}" ]]; then mk=$(ls projects/$2/Makefile environments/$2/Makefile 2>/dev/null); help "$3" $mk $(includes $mk) mk/common.mk
     else help "$2" Makefile mk/common.mk; fi
     exit ;;
+  devsync) shift; exec scripts/devsync.sh "$@" ;;
   "") ;;
-  *) echo "usage: infra | infra help TARGET | infra help ENV TARGET" >&2; exit 1 ;;
+  *) echo "usage: infra | infra help TARGET | infra help ENV TARGET | infra devsync ENV [PATH...]" >&2; exit 1 ;;
 esac
 
 if [[ -f /etc/dev-vps ]]; then
