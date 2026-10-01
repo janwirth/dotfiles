@@ -96,8 +96,15 @@ function k () {
   if [[ $# -gt 0 ]]; then f=$(_kfiles "$@" | head -1)
   else f=$(_kfiles | fzf --tiebreak=index); fi
   [[ -n $f ]] || return
-  mkdir -p ${_kroot:h}/k_zoxide "$_kroot$f" && _kz add "$_kroot$f"
   kak "$f"
+}
+# every kak launch records its files, so frecency covers files opened any way
+function kak () {
+  local a f
+  for a; do [[ -f $a ]] || continue; f=${a:A}
+    mkdir -p ${_kroot:h}/k_zoxide "$_kroot$f" && _kz add "$_kroot$f"
+  done
+  command kak "$@"
 }
 function rid () { local f=$(_kfiles "$@" | head -1); [[ -n $f ]] && less "$f" }
 function rgk () { kak `rg -l $1` }
