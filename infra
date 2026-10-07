@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# infra            where am I, tailnet state, repo state, commands by layer
+# infra            local identity, repo state, available command categories
+# infra CATEGORY   commands for an available layer or environment group
+# infra env        available environments
+# infra env NAME   commands for one environment
+# infra tailnet    local identity, exit node, and peers
+# infra joceline | infra maeve  test a collaborator's actual SSH login and welcome
 # infra devsync ENV [PATH...]  laptop -> ~/inbox on dev-ENV (no PATH: clipboard image)
 # infra help TARGET  the full docs for one make target (comment block + recipe)
 #
@@ -41,15 +46,106 @@ help() {
   ' "$@"
 }
 
+# category NAME — show commands only when this checkout provides them.
+category() {
+  local name="$1" mk
+  case "$name" in
+    setup|foundation|dev) targets "$name" Makefile mk/common.mk ;;
+    *)
+      for mk in projects/"$name"/Makefile environments/"$name"/Makefile; do
+        [[ -f "$mk" ]] || continue
+        echo "  cd $(dirname "$mk")"
+        targets setup "$mk" $(includes "$mk")
+        targets foundation "$mk" $(includes "$mk")
+        targets dev "$mk" $(includes "$mk")
+      done ;;
+  esac
+}
+
+environments() {
+  local mk name
+  for mk in projects/*/Makefile environments/*/Makefile; do
+    [[ -f "$mk" ]] || continue
+    name="$(basename "$(dirname "$mk")")"
+    echo "  infra env $name"
+  done
+}
+
+tailnet() {
+  local ts state self exit_node
+  if ! command -v tailscale >/dev/null 2>&1; then
+    echo "tailnet: tailscale not installed"
+    return
+  fi
+  ts="$(tailscale status --json 2>/dev/null)" || ts='{}'
+  state="$(jq -r '.BackendState // "unknown"' <<<"$ts")"
+  self="$(jq -r '.Self.DNSName // .Self.HostName // "unknown"' <<<"$ts")"
+  exit_node="$(jq -r '.ExitNodeStatus.ID // empty' <<<"$ts")"
+  echo "tailnet: $state  self=$self"
+  if [[ -n "$exit_node" ]]; then
+    jq -r --arg id "$exit_node" '.Peer // {} | .[] | select(.ID == $id) | "exit node: \(.HostName)"' <<<"$ts"
+  else
+    echo "exit node: none"
+  fi
+  if [[ "${1:-}" == peers ]]; then
+    jq -r '.Peer // {} | .[] | "  peer: \(.HostName)=\(if .Online then "online" else "offline" end)"' <<<"$ts"
+  fi
+}
+
+# Prefer generated onboarding keys; laptops can use their downloaded copies.
+collaborator_key() {
+  local name="$1" key
+  for key in "$HOME/.local/share/infra/onboarding/$name/$name-dev-us" "$HOME/.ssh/$name-dev-us"; do
+    [[ -r "$key" ]] && { echo "$key"; return; }
+  done
+  return 1
+}
+
+collaborator_help() {
+  local name="$1" key
+  key="$(collaborator_key "$name")" || key="$HOME/.ssh/$name-dev-us"
+  echo "infra $name — Test $name's SSH login, welcome, and shell on dev-us"
+  echo "Requires a Tailscale connection and $name's private key."
+  echo "Key: $key"
+  echo "Run infra $name; type exit to disconnect."
+}
+
 case "${1:-}" in
   help)
+    if [[ "${2:-}" =~ ^(joceline|maeve)$ && -z "${3:-}" ]]; then collaborator_help "$2"; exit; fi
     [[ -n "${2:-}" ]] || { echo "usage: infra help TARGET | infra help ENV TARGET" >&2; exit 1; }
     if [[ -n "${3:-}" ]]; then mk=$(ls projects/$2/Makefile environments/$2/Makefile 2>/dev/null); help "$3" $mk $(includes $mk) mk/common.mk
     else help "$2" Makefile mk/common.mk; fi
     exit ;;
-  devsync) shift; exec scripts/devsync.sh "$@" ;;
+  joceline|maeve)
+    name="$1"
+    key="$(collaborator_key "$name")" || { echo "$name's private key is missing; save it as ~/.ssh/$name-dev-us" >&2; exit 1; }
+    domain="$(sed -nE 's/^[[:space:]]*domain[[:space:]]*=[[:space:]]*"(.*)".*/\1/p' tofu/locals.tf)"
+    [[ -n "$domain" ]] || { echo "Domain missing from tofu/locals.tf" >&2; exit 1; }
+    exec ssh -t -o IdentitiesOnly=yes -i "$key" "$name@dev-us.tailnet.$domain" ;;
+  tailnet) tailnet peers; exit ;;
+  uptime) exec python3 scripts/infra-status.py --uptime ;;
+  env)
+    if [[ -n "${2:-}" && -z "${3:-}" ]]; then
+      commands="$(category "$2")"
+      [[ -n "$commands" ]] || { echo "no environment $2; run infra env for available environments" >&2; exit 1; }
+      echo "$commands"
+    elif [[ -z "${2:-}" ]]; then
+      environments
+    else
+      echo "usage: infra env [NAME]" >&2
+      exit 1
+    fi
+    exit ;;
+  devsync)
+    [[ -f scripts/devsync.sh && ! -f /etc/dev-vps ]] || { echo "devsync is available only on laptops with scripts/devsync.sh" >&2; exit 1; }
+    shift; exec scripts/devsync.sh "$@" ;;
   "") ;;
-  *) echo "usage: infra | infra help TARGET | infra help ENV TARGET | infra devsync ENV [PATH...]" >&2; exit 1 ;;
+  *)
+    commands="$(category "$1")"
+    [[ -n "$commands" ]] || { echo "no category $1; run infra for available categories" >&2; exit 1; }
+    echo "$commands"
+    exit ;;
 esac
 
 if [[ -f /etc/dev-vps ]]; then
@@ -58,42 +154,35 @@ else
   echo "host:    $(hostname -s) (laptop)"
 fi
 
-if command -v tailscale >/dev/null 2>&1; then
-  ts="$(tailscale status --json 2>/dev/null || echo '{}')"
-  state="$(jq -r '.BackendState // "unknown"' <<<"$ts")"
-  peers="$(jq -r '[.Peer // {} | .[] | select(.HostName | test("^(dev|headscale)")) | "\(.HostName)=\(if .Online then "online" else "offline" end)"] | join("  ")' <<<"$ts")"
-  echo "tailnet: $state${peers:+  $peers}"
-else
-  echo "tailnet: tailscale not installed"
-fi
+tailnet
 
 dirty="$(git status --porcelain | wc -l | tr -d ' ')"
 echo "repo:    $INFRA_DIR  $(git status -sb | head -1 | sed 's/^## //')  ${dirty} uncommitted"
-
-cat <<EOF
-
-setup — once per machine
-$(targets setup Makefile)
-
-foundation — control-plane (tailnet), dokploy (builds, registry)
-$(targets foundation Makefile mk/common.mk)
-
-environment: dev — the dev box
-$(targets dev Makefile)
-EOF
-for mk in projects/*/Makefile environments/*/Makefile; do
-  [[ -f "$mk" ]] || continue
-  env="$(basename "$(dirname "$mk")")"
+echo
+if [[ -f scripts/infra-status.py ]]; then
+  python3 scripts/infra-status.py || true
   echo
-  echo "environment: $env — cd $(dirname "$mk"), then:"
-  targets setup "$mk" $(includes "$mk"); targets foundation "$mk" $(includes "$mk"); targets dev "$mk" $(includes "$mk")
+fi
+echo "Commands:"
+for name in setup foundation dev; do
+  case "$name" in
+    setup) description="Prepare tools, keys, and tokens" ;;
+    foundation) description="Manage control-plane and tailnet" ;;
+    dev) description="Access dev box and inspect builds" ;;
+  esac
+  [[ -n "$(category "$name")" ]] && echo "  infra $name — $description"
 done
-cat <<EOF
-
-Details: infra help TARGET, infra help ENV TARGET
-
-COMING SOON — the CLI follows the layers:
-  infra foundation TARGET        root Makefile, foundation targets
-  infra env NAME TARGET          projects/NAME/Makefile
-  infra env dev TARGET           dev moves from the root into environments/dev
-EOF
+[[ -n "$(environments)" ]] && echo "  infra env — List available environments"
+command -v tailscale >/dev/null 2>&1 && echo "  infra tailnet — Show self, peers, and exit node"
+if [[ -f scripts/devsync.sh ]]; then
+  if [[ -f /etc/dev-vps ]]; then
+    echo "  infra devsync ENV [PATH...] — Unavailable here; run on laptop"
+  else
+    echo "  infra devsync ENV [PATH...] — Send files or clipboard image to dev box"
+  fi
+fi
+[[ -f scripts/infra-status.py ]] && echo "  infra uptime — Show Gatus health over last 7 days"
+for name in joceline maeve; do
+  collaborator_key "$name" >/dev/null && echo "  infra $name — Test $name's SSH login and welcome on dev-us"
+done
+echo "  infra help TARGET | infra help ENV TARGET — Show target docs and recipe"
