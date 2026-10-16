@@ -32,7 +32,7 @@
 
 # Open iTerm2
 # cmd - return : open -na /Applications/Kitty.app
-cmd - return : osascript -e 'tell application "iTerm2"' -e 'create window with default profile' -e 'activate' -e 'end tell'
+cmd - return : if pgrep -x iTerm2 >/dev/null; then osascript -e 'tell application "iTerm2" to create window with default profile'; else open -a iTerm; fi
 
 # close focused window
 fn - w : chunkc tiling::window --close
@@ -164,4 +164,4 @@ fn + ctrl - s : cd owvs-ui && npm start
 ctrl - 1 : yabai -m window --toggle zoom-fullscreen
 # 0x0A : alacritty
 
-0x0A : osascript -e 'tell application "iTerm2"' -e 'create window with default profile' -e 'activate' -e 'end tell'
+0x0A : if pgrep -x iTerm2 >/dev/null; then osascript -e 'tell application "iTerm2" to create window with default profile'; else open -a iTerm; fi
