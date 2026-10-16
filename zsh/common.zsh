@@ -72,7 +72,7 @@ alias work="pomo && pomo -s"
 alias tm='task-master'
 alias taskmaster='task-master'
 alias c="SANDBOX=1 IS_SANDBOX=1 claude --dangerously-skip-permissions"
-alias cx="codex --dangerously-bypass-approvals-and-sandbox"
+alias cx="$HOME/.local/bin/cx"
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
 # corepack proxies
